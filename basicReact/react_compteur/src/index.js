@@ -7,21 +7,20 @@ class InputCompteur extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state =  {title: "Mon titre par défaut"};
-    this.changeTitle = this.changeTitle.bind(this);
+    this.state =  { title: "Mon titre par défaut" };
+    this.changeValueInput = this.changeValueInput.bind(this);
   }
 
-  changeTitle(event){
-    this.setState({title: event.target.value});
+  changeValueInput(event){
+    this.props.onChangeTitle(event.target.value);
   }
 
   render() {
     return (
       <div className="input">
         <form>
-          <input type="text" value={this.state.title} onChange={this.changeTitle}/>
+          <input type="text" onChange={this.changeValueInput}/>
         </form>
-        <Title title={this.state.title}/>
       </div>
     );
   }
@@ -30,20 +29,31 @@ class InputCompteur extends React.Component {
 
 class Title extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {title: props.title}
-  }
-
   render() {
     return (
-      <div className="global">
-        <div className="allo">
-         <h1>{this.state.title}</h1>
-        </div>
+      <div className="allo">
+        <h1>{this.props.title}</h1>
       </div>
     );
   }
 }
 
-ReactDOM.render(<InputCompteur />, document.getElementById('root'));
+class App extends React.Component {
+
+  state = { title: "Default's Title"};
+
+  changeTitle = (value) => {
+    this.setState({ state: value});
+  }
+
+  render() {
+    return(
+      <div className="global">
+        <InputCompteur onChangeTitle={this.changeTitle}/>
+        <Title title={this.state.title}/>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
