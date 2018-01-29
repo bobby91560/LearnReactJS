@@ -43,7 +43,7 @@ class App extends React.Component {
   state = { title: "Default's Title"};
 
   changeTitle = (value) => {
-    this.setState({ state: value});
+    this.setState({ title: value});
   }
 
   render() {
